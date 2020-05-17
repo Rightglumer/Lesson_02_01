@@ -1,14 +1,18 @@
-import Common.*;
-import Competitors.*;
-import Obstacles.*;
-
-import javax.swing.*;
-import java.awt.image.ImageConsumer;
-import java.io.IOException;
+import Common.AreaWindow;
+import Common.Common;
+import Competitors.Cat;
+import Competitors.ICompetitor;
+import Competitors.Man;
+import Competitors.Robot;
+import Obstacles.IBarrier;
+import Obstacles.Treadmill;
+import Obstacles.Wall;
 
 public class Main {
     final static int MAX_COMPETITORS = 5;
     final static int MAX_BARRIERS = 5;
+
+    enum DayOfWeek {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY}
 
     public static void main(String[] args)  {
         ICompetitor[] competitors = new ICompetitor[Common.getRandomInt(MAX_COMPETITORS) + 2];
@@ -41,23 +45,19 @@ public class Main {
             }
         }
         AreaWindow window = new AreaWindow(competitors, barriers);
-/*
 
-        for (int i = 0; i < competitors.length; i++) {
-            competitors[i].printInfo();
-        }
-
-        for (int i = 0; i < barriers.length; i++) {
-            barriers[i].printInfo();
-        }
-
-        for (IBarrier barrier : barriers) {
-            for (ICompetitor competitor : competitors) {
-                if (competitor.isOnDistance()) {
-                    barrier.overcome(competitor);
-                }
-            }
+        // ENUM
+        /*
+        int workingHours = getWorkingHours(DayOfWeek.WEDNESDAY);
+        if (workingHours == 0) {
+            System.out.println("It's weekend");
+        } else {
+            System.out.printf("There are only %d working hours left on this week", workingHours);
         }
         */
+    }
+
+    public static int getWorkingHours(DayOfWeek day) {
+        return (day.ordinal() < 5) ? (5 - day.ordinal()) * 8 : 0;
     }
 }
